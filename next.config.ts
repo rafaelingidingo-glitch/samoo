@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
   },
   reactStrictMode: false,
   poweredByHeader: false,
+  /**
+   * Preview panel / gateway origins allowed to fetch /_next/* dev assets
+   * and HMR websockets. The preview panel serves the app through a
+   * *.space-z.ai host, which Next 16 treats as cross-origin.
+   */
+  allowedDevOrigins: ["*.space-z.ai"],
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
