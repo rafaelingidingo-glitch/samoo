@@ -4,14 +4,13 @@ type LogoProps = {
   businessName: string;
   logoUrl?: string | null;
   variant?: "light" | "dark";
-  compact?: boolean;
 };
 
 /**
  * Brand wordmark. Uses the configured logo when available,
  * otherwise an elegant typographic wordmark.
  */
-export function Logo({ businessName, logoUrl, variant = "light", compact = false }: LogoProps) {
+export function Logo({ businessName, logoUrl, variant = "light" }: LogoProps) {
   // Full brand name as the wordmark — e.g. "SAWEE CARS."
   const primary = businessName.trim().toUpperCase() || "SAWEE CARS";
 
@@ -25,15 +24,13 @@ export function Logo({ businessName, logoUrl, variant = "light", compact = false
           height={44}
           className="h-11 w-auto object-contain"
         />
-        {!compact && (
-          <span className="text-sm font-semibold">{businessName}</span>
-        )}
+        <span className="text-sm font-semibold">{businessName}</span>
       </span>
     );
   }
 
   return (
-    <span className="inline-flex flex-col leading-none">
+    <span className="inline-flex items-center leading-none">
       <span
         className={`font-heading text-xl md:text-2xl font-bold tracking-[0.14em] ${
           variant === "dark" ? "text-white" : "text-foreground"
@@ -42,15 +39,6 @@ export function Logo({ businessName, logoUrl, variant = "light", compact = false
         {primary}
         <span className="text-gold">.</span>
       </span>
-      {!compact && (
-        <span
-          className={`mt-1 text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.28em] ${
-            variant === "dark" ? "text-neutral-400" : "text-muted-foreground"
-          }`}
-        >
-          Vintage &amp; Classic Cars
-        </span>
-      )}
     </span>
   );
 }
