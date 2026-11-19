@@ -1,4 +1,4 @@
-import { Prisma, type PrismaClient } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { deleteImage } from "@/lib/cloudinary";
 import { uniqueVehicleSlug } from "@/lib/slug";
@@ -402,7 +402,7 @@ export async function updateVehicleStatus(
  */
 export async function deleteVehicle(
   id: string
-): Promise<{ images: { imageUrl: string; publicId: string | null }[] }> {
+): Promise<{ imageUrl: string; publicId: string | null }[]> {
   const vehicle = await db.vehicle.findUnique({
     where: { id },
     include: {
@@ -447,7 +447,7 @@ export async function syncVehicleImages(
   });
   if (!vehicle) throw new Error("Vehicle not found");
 
-  const result = await db.$transaction(async (tx: PrismaClient) => {
+  const result = await db.$transaction(async (tx: Prisma.TransactionClient) => {
     const existing = await tx.vehicleImage.findMany({
       where: { vehicleId },
       select: { id: true, imageUrl: true, publicId: true },

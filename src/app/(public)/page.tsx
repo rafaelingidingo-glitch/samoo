@@ -20,9 +20,9 @@ import { SITE_URL } from "@/lib/env";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Sawee Vintage & Classic Cars — Vintage & Classic Automobiles in Tanzania",
+  title: "SAWEE CARS — Vintage & Classic Automobiles in Tanzania",
   description:
-    "Discover timeless automotive excellence. Browse a distinctive collection of vintage and classic automobiles at Sawee Vintage & Classic Cars, Tanzania.",
+    "Discover timeless automotive excellence. Browse a distinctive collection of vintage and classic automobiles at SAWEE CARS, Tanzania.",
   alternates: { canonical: "/" },
 };
 
@@ -68,7 +68,7 @@ export default async function HomePage() {
       <Hero
         imageUrl={heroImage}
         headline="Discover timeless automotive excellence."
-        description="Explore a distinctive collection of vintage and classic automobiles at Sawee Vintage & Classic Cars."
+        description="Explore a distinctive collection of vintage and classic automobiles at SAWEE CARS."
       />
 
       {/* 3 — Featured vehicles */}
@@ -192,14 +192,14 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* 6 — About Sawee */}
+      {/* 6 — About SAWEE CARS */}
       <section aria-labelledby="about-heading" className="bg-ink py-16 text-white dark-section md:py-24">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
           <Reveal>
             <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
               <Image
                 src="/images/demo/about.png"
-                alt="Inside the Sawee Vintage & Classic Cars showroom"
+                alt="Inside the SAWEE CARS showroom"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
@@ -208,7 +208,7 @@ export default async function HomePage() {
           </Reveal>
           <Reveal delay={0.12}>
             <div>
-              <p className="eyebrow">About Sawee</p>
+              <p className="eyebrow">About SAWEE CARS</p>
               <h2
                 id="about-heading"
                 className="mt-2 font-heading text-3xl font-bold uppercase tracking-tight md:text-4xl"
@@ -217,7 +217,7 @@ export default async function HomePage() {
               </h2>
               <p className="mt-5 leading-relaxed text-neutral-300">
                 {settings.aboutIntro ||
-                  "Sawee Vintage & Classic Cars is a Tanzanian dealership dedicated to vintage and classic automobiles. We present a curated collection, share honest specifications and photography, and guide enthusiasts through every enquiry personally."}
+                  "SAWEE CARS is a Tanzanian dealership dedicated to vintage and classic automobiles. We present a curated collection, share honest specifications and photography, and guide enthusiasts through every enquiry personally."}
               </p>
               <Button
                 asChild

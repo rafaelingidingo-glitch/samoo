@@ -1,6 +1,6 @@
-# Sawee Vintage & Classic Cars — Website
+# SAWEE CARS — Website
 
-Production-ready dealership website for **Sawee Vintage & Classic Cars** (Tanzania), specialising in vintage and classic automobiles. The site presents curated inventory with prices in **TZS**, and drives every enquiry through **WhatsApp** deep links with pre-filled, per-vehicle messages.
+Production-ready dealership website for **SAWEE CARS** (Tanzania), specialising in vintage and classic automobiles. The site presents curated inventory with prices in **TZS**, and drives every enquiry through **WhatsApp** deep links with pre-filled, per-vehicle messages.
 
 ## Project Overview
 
@@ -73,11 +73,11 @@ Create a `.env` file in the project root. All variables (with comments) are list
 | --- | --- | --- |
 | `DATABASE_URL` | ✅ | Prisma connection string. **SQLite (dev):** `file:/home/z/my-project/db/custom.db` — **MySQL (prod):** `mysql://user:password@host:3306/dbname` |
 | `AUTH_SECRET` | ✅ in production | Secret used to sign session JWTs. Must be **32+ characters**. Generate with `openssl rand -hex 32`. In development a fallback dev-only secret is used so the sandbox boots without setup; in production a missing/weak secret **throws** at startup. |
-| `NEXT_PUBLIC_SITE_URL` | ✅ in production | Canonical site origin, e.g. `https://www.saweeoldcars.co.tz`. Used for sitemap, robots, canonical URLs, Open Graph and WhatsApp message links. Defaults to `http://localhost:3000`. |
+| `NEXT_PUBLIC_SITE_URL` | ✅ in production | Canonical site origin, e.g. `https://www.saweecars.co.tz`. Used for sitemap, robots, canonical URLs, Open Graph and WhatsApp message links. Defaults to `http://localhost:3000`. |
 | `CLOUDINARY_CLOUD_NAME` | ⬜ optional | Cloudinary account name. When **all three** `CLOUDINARY_*` credentials are absent, the local storage driver is used automatically. |
 | `CLOUDINARY_API_KEY` | ⬜ optional | Cloudinary API key (paired with the secret for signed uploads). |
 | `CLOUDINARY_API_SECRET` | ⬜ optional | Cloudinary API secret — **server-side only**, never exposed to the browser. |
-| `CLOUDINARY_FOLDER` | ⬜ optional | Cloudinary folder for vehicle images. Defaults to `sawee/vehicles`. |
+| `CLOUDINARY_FOLDER` | ⬜ optional | Cloudinary folder for vehicle images. Defaults to `saweecars/vehicles`. |
 | `UPLOAD_DIR` | ⬜ optional | Absolute directory for the local storage driver. Defaults to `<project>/uploads`. Uploaded files are stored under `vehicles/` inside this directory and served through `/api/files/...`. |
 
 > **Storage driver behaviour:** `uploadImage()` checks the three Cloudinary credentials at runtime. If configured → signed Cloudinary upload; if not → files are written to `UPLOAD_DIR` and served via `/api/files/[...key]`. The admin dashboard shows which driver is active.
@@ -110,7 +110,7 @@ The schema ships with `provider = "sqlite"` and is fully portable. Enum-like val
 2. Set `DATABASE_URL` to a MySQL connection string:
 
    ```env
-   DATABASE_URL="mysql://user:password@host:3306/sawee?connection_limit=10"
+   DATABASE_URL="mysql://user:password@host:3306/saweecars?connection_limit=10"
    ```
 
 3. Restore the native column type on `Vehicle.price`. The schema file contains a comment marking the exact spot (`price Decimal // MySQL: Decimal @db.Decimal(14, 2)`); change it to:

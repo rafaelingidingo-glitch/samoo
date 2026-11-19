@@ -50,8 +50,10 @@ import { formatTZS, formatDate, AVAILABILITY_LABELS } from "@/lib/format";
 import { optimizedImageUrl } from "@/lib/cloudinary/image-url";
 import type { VehicleCardData } from "@/types";
 
+type AdminVehicleRow = Omit<VehicleCardData, "price"> & { price: number };
+
 type Props = {
-  vehicles: (VehicleCardData & { price: number })[];
+  vehicles: AdminVehicleRow[];
   canDelete: boolean;
   canPublish: boolean;
   baseUrl: string;
@@ -60,7 +62,7 @@ type Props = {
 export function InventoryTable({ vehicles, canDelete, canPublish, baseUrl }: Props) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
-  const [deleteTarget, setDeleteTarget] = useState<VehicleCardData | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<AdminVehicleRow | null>(null);
   const [deleting, setDeleting] = useState(false);
   const [busyId, setBusyId] = useState<string | null>(null);
 

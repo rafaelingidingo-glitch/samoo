@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import type { Prisma } from "@prisma/client";
+import type { SettingsUpdateInput } from "@/lib/validations";
 
 /**
  * Central site settings service.
@@ -36,7 +37,7 @@ export type SiteSettings = {
  * placeholders / hidden until the client approves content.
  */
 export const DEFAULT_SETTINGS: Omit<SiteSettings, "updatedAt"> = {
-  businessName: "Sawee Vintage & Classic Cars",
+  businessName: "SAWEE CARS",
   phone: "+255710853255",
   whatsappNumber: "255710853255",
   instagramUrl: "https://www.instagram.com/sawee_oldcarstz/",
@@ -71,13 +72,44 @@ export async function getSiteSettings(): Promise<SiteSettings> {
   return { ...(settings as unknown as Omit<SiteSettings, "updatedAt">), updatedAt: row.updatedAt };
 }
 
+/**
+ * Columns that cannot store NULL (schema-level NOT NULL with defaults).
+ * For these, null/empty input is ignored so the previous value is kept.
+ */
+const NON_NULLABLE_SETTING_KEYS = new Set([
+  "businessName",
+  "phone",
+  "whatsappNumber",
+  "instagramUrl",
+]);
+
+/**
+ * Updates the singleton settings row from validated form input.
+ * `null`/empty values are stored as NULL for nullable columns (clearing
+ * the override so defaults apply again) and skipped for non-nullable ones.
+ */
 export async function updateSiteSettings(
-  data: Prisma.SiteSettingUncheckedUpdateInput
+  data: SettingsUpdateInput
 ): Promise<SiteSettings> {
+  const updateData: Record<string, string | null> = {};
+  for (const [key, value] of Object.entries(data)) {
+    if (value === undefined) continue;
+    const isEmpty = value === null || (typeof value === "string" && value.trim() === "");
+    if (isEmpty) {
+      if (!NON_NULLABLE_SETTING_KEYS.has(key)) updateData[key] = null;
+      continue;
+    }
+    updateData[key] = value as string;
+  }
+
   const row = await db.siteSetting.upsert({
     where: { id: "singleton" },
-    create: { id: "singleton", ...data },
-    update: data,
+    create: {
+      id: "singleton",
+      ...DEFAULT_SETTINGS,
+      ...updateData,
+    } as Prisma.SiteSettingUncheckedCreateInput,
+    update: updateData as Prisma.SiteSettingUncheckedUpdateInput,
   });
 
   // Settings affect header/footer/contact across the site.

@@ -27,7 +27,7 @@ export default async function AdminSetupPage() {
             {setupCompleted ? "Setup Complete" : "Create First Administrator"}
           </h1>
           <p className="mt-2 text-sm text-neutral-400">
-            Sawee Vintage &amp; Classic Cars — dashboard provisioning
+            SAWEE CARS — dashboard provisioning
           </p>
         </div>
 

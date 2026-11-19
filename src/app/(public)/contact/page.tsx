@@ -9,7 +9,7 @@ import { Reveal } from "@/components/home/reveal";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Contact Sawee Vintage & Classic Cars — reach us directly on WhatsApp, phone or Instagram. No forms, no middlemen.",
+    "Contact SAWEE CARS — reach us directly on WhatsApp, phone or Instagram. No forms, no middlemen.",
   alternates: { canonical: "/contact" },
 };
 

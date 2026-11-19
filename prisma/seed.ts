@@ -1,5 +1,5 @@
 /**
- * Database seed — Sawee Vintage & Classic Cars
+ * Database seed — SAWEE CARS
  *
  * Creates:
  *   1. Categories and brands (admin-manageable master data)
@@ -243,7 +243,7 @@ const DEMO_VEHICLES: DemoVehicle[] = [
 ];
 
 async function main() {
-  console.log("Seeding Sawee Vintage & Classic Cars database...");
+  console.log("Seeding SAWEE CARS database...");
 
   // 1. Categories
   for (const c of CATEGORIES) {
@@ -276,7 +276,7 @@ async function main() {
     update: {},
     create: {
       id: "singleton",
-      businessName: "Sawee Vintage & Classic Cars",
+      businessName: "SAWEE CARS",
       phone: "+255710853255",
       whatsappNumber: "255710853255",
       instagramUrl: "https://www.instagram.com/sawee_oldcarstz/",

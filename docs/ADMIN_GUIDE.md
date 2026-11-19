@@ -1,4 +1,4 @@
-# Admin Guide — Sawee Vintage & Classic Cars
+# Admin Guide — SAWEE CARS
 
 This guide is for dealership staff who manage the website day-to-day. No technical knowledge is required — everything happens in the **Admin Dashboard** at `/admin/dashboard`.
 
@@ -186,7 +186,7 @@ Each entry shows the user (or “unknown” for failed logins), the action, the 
 
 Every enquiry button on the site opens **WhatsApp with a message pre-filled for the visitor** — they just press send:
 
-- **On a vehicle page** — “Hello Sawee Vintage & Classic Cars. I am interested in the *<vehicle>* listed on your website. Please share more details about its availability.” followed by a **direct link to that vehicle's page**, so you always know which car they mean.
+- **On a vehicle page** — “Hello SAWEE CARS. I am interested in the *<vehicle>* listed on your website. Please share more details about its availability.” followed by a **direct link to that vehicle's page**, so you always know which car they mean.
 - **On a Sold vehicle** — “I saw that the *<vehicle>* … is sold. Do you have similar vehicles available or expected?” — turning sold listings into future-business leads.
 - **General enquiry** (contact page and elsewhere) — a friendly intro message with no vehicle attached.
 

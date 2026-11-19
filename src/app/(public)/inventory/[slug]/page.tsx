@@ -63,7 +63,7 @@ export async function generateMetadata({
     description: `${vehicle.title}. ${vehicle.brand.name} ${vehicle.model}, ${vehicle.year}. ${formatTZS(vehicle.price)}. View specifications and enquire via WhatsApp.`,
     alternates: { canonical: `/inventory/${vehicle.slug}` },
     openGraph: {
-      title: `${vehicle.title} | Sawee Vintage & Classic Cars`,
+      title: `${vehicle.title} | SAWEE CARS`,
       description: vehicle.description.slice(0, 180),
       url: `${SITE_URL}/inventory/${vehicle.slug}`,
       type: "website",

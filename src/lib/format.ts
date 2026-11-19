@@ -2,7 +2,9 @@
  * Display formatters.
  */
 
-type PriceLike = string | number | null | undefined;
+// `{ toString(): string }` accepts Prisma's Decimal (vehicle price) as well
+// as plain numbers and numeric strings.
+type PriceLike = string | number | null | undefined | { toString(): string };
 
 /** Formats a price in Tanzanian Shillings: "TSh 45,000,000". */
 export function formatTZS(price: PriceLike): string {

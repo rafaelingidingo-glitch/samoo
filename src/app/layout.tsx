@@ -19,21 +19,21 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Sawee Vintage & Classic Cars — Vintage & Classic Automobiles in Tanzania",
-    template: "%s | Sawee Vintage & Classic Cars",
+    default: "SAWEE CARS — Vintage & Classic Automobiles in Tanzania",
+    template: "%s | SAWEE CARS",
   },
   description:
-    "Explore a distinctive collection of vintage and classic automobiles at Sawee Vintage & Classic Cars, Tanzania. Browse our inventory and enquire directly via WhatsApp.",
+    "Explore a distinctive collection of vintage and classic automobiles at SAWEE CARS, Tanzania. Browse our inventory and enquire directly via WhatsApp.",
   keywords: [
     "vintage cars Tanzania",
     "classic cars for sale",
-    "Sawee Vintage & Classic Cars",
+    "SAWEE CARS",
     "classic car dealership Dar es Salaam",
     "vintage automobiles",
   ],
   openGraph: {
     type: "website",
-    siteName: "Sawee Vintage & Classic Cars",
+    siteName: "SAWEE CARS",
     url: SITE_URL,
   },
   twitter: {

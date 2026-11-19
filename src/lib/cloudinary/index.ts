@@ -3,7 +3,7 @@ import { mkdir, writeFile, unlink, readFile, stat } from "fs/promises";
 import path from "path";
 import "server-only";
 import { UPLOAD_DIR, isProd } from "@/lib/env";
-import { optimizedImageUrl } from "@/lib/cloudinary/image-url";
+import { optimizedImageUrl, isLocalUpload } from "@/lib/cloudinary/image-url";
 
 // Re-export client-safe helpers so server code can import everything from one place.
 export { optimizedImageUrl, isLocalUpload };
@@ -27,7 +27,7 @@ const CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
 const API_KEY = process.env.CLOUDINARY_API_KEY;
 const API_SECRET = process.env.CLOUDINARY_API_SECRET;
 
-export const CLOUDINARY_FOLDER = process.env.CLOUDINARY_FOLDER || "sawee/vehicles";
+export const CLOUDINARY_FOLDER = process.env.CLOUDINARY_FOLDER || "saweecars/vehicles";
 
 export function isCloudinaryConfigured(): boolean {
   return Boolean(CLOUD_NAME && API_KEY && API_SECRET);

@@ -1,6 +1,6 @@
 # Production Deployment Guide
 
-This guide deploys **Sawee Vintage & Classic Cars** to production.
+This guide deploys **SAWEE CARS** to production.
 
 ## Recommended Architecture
 
@@ -19,7 +19,7 @@ This guide deploys **Sawee Vintage & Classic Cars** to production.
 ```bash
 git init
 git add .
-git commit -m "Initial commit — Sawee dealership site"
+git commit -m "Initial commit — SAWEE CARS dealership site"
 git remote add origin git@github.com:<your-org>/sawee-cars.git
 git push -u origin main
 ```
@@ -73,11 +73,11 @@ git push -u origin main
    | --- | --- |
    | `DATABASE_URL` | Managed MySQL connection string |
    | `AUTH_SECRET` | `openssl rand -hex 32` — 32+ characters, **unique per environment** |
-   | `NEXT_PUBLIC_SITE_URL` | Final production domain, e.g. `https://www.saweeoldcars.co.tz` |
+   | `NEXT_PUBLIC_SITE_URL` | Final production domain, e.g. `https://www.saweecars.co.tz` |
    | `CLOUDINARY_CLOUD_NAME` | Your Cloudinary cloud name |
    | `CLOUDINARY_API_KEY` | Your Cloudinary API key |
    | `CLOUDINARY_API_SECRET` | Your Cloudinary API secret |
-   | `CLOUDINARY_FOLDER` | *(optional)* defaults to `sawee/vehicles` |
+   | `CLOUDINARY_FOLDER` | *(optional)* defaults to `saweecars/vehicles` |
    | `UPLOAD_DIR` | *(not needed on Vercel — the local driver is unused once Cloudinary is configured)* |
 
 3. Trigger a build (**Deploy**). The build runs `next build` and produces the standalone server bundle.
@@ -122,7 +122,7 @@ Changing it later requires a redeploy.
 
   ```bash
   mysqldump --single-transaction --routines \
-    -h <host> -u <user> -p <database> > sawee-$(date +%F).sql
+    -h <host> -u <user> -p <database> > saweecars-$(date +%F).sql
   ```
 
   Store dumps off-site (e.g. encrypted in object storage). Run one before every deployment that includes migrations.

@@ -12,8 +12,8 @@ type LogoProps = {
  * otherwise an elegant typographic wordmark.
  */
 export function Logo({ businessName, logoUrl, variant = "light", compact = false }: LogoProps) {
-  const nameWords = businessName.trim().split(" ");
-  const primary = nameWords[0]?.toUpperCase() || "SAWEE";
+  // Full brand name as the wordmark — e.g. "SAWEE CARS."
+  const primary = businessName.trim().toUpperCase() || "SAWEE CARS";
 
   if (logoUrl) {
     return (

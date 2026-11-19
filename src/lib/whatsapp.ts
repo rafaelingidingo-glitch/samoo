@@ -22,15 +22,15 @@ export function buildWhatsAppUrl(
 }
 
 export const GENERAL_INQUIRY_MESSAGE =
-  "Hello Sawee Vintage & Classic Cars. I found you through your website and would like to learn more about your vehicles.";
+  "Hello SAWEE CARS. I found you through your website and would like to learn more about your vehicles.";
 
 export const SOLD_INQUIRY_MESSAGE = (vehicleTitle: string) =>
-  `Hello Sawee Vintage & Classic Cars. I saw that the ${vehicleTitle} on your website is sold. Do you have similar vehicles available or expected?`;
+  `Hello SAWEE CARS. I saw that the ${vehicleTitle} on your website is sold. Do you have similar vehicles available or expected?`;
 
 export function vehicleInquiryMessage(vehicleTitle: string, slug: string): string {
   const vehicleUrl = `${SITE_URL}/inventory/${slug}`;
   return (
-    `Hello Sawee Vintage & Classic Cars. I am interested in the ${vehicleTitle} ` +
+    `Hello SAWEE CARS. I am interested in the ${vehicleTitle} ` +
     `listed on your website. Please share more details about its availability.\n${vehicleUrl}`
   );
 }

@@ -33,7 +33,7 @@ export function Hero({ imageUrl, headline, description }: HeroProps) {
         {imageUrl ? (
           <Image
             src={imageUrl}
-            alt="Vintage and classic automobile from the Sawee collection"
+            alt="Vintage and classic automobile from the SAWEE CARS collection"
             fill
             priority
             sizes="100vw"
@@ -50,7 +50,7 @@ export function Hero({ imageUrl, headline, description }: HeroProps) {
           {...fadeUp(0)}
           className="eyebrow mb-5 text-[#d9c7a3]"
         >
-          Sawee Vintage &amp; Classic Cars — Tanzania
+          SAWEE CARS — Tanzania
         </motion.p>
         <motion.h1
           {...fadeUp(0.12)}

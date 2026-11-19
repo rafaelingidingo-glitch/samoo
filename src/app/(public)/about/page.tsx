@@ -9,7 +9,7 @@ import { getSiteSettings } from "@/lib/settings";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Learn about Sawee Vintage & Classic Cars — a Tanzanian dealership dedicated to vintage and classic automobiles.",
+    "Learn about SAWEE CARS — a Tanzanian dealership dedicated to vintage and classic automobiles.",
   alternates: { canonical: "/about" },
 };
 
@@ -49,13 +49,13 @@ export default async function AboutPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="max-w-3xl">
-              <p className="eyebrow">About Sawee</p>
+              <p className="eyebrow">About SAWEE CARS</p>
               <h1 className="mt-2 font-heading text-4xl font-bold uppercase leading-tight tracking-tight md:text-5xl">
                 Who We Are
               </h1>
               <p className="mt-6 text-lg leading-relaxed text-neutral-300">
                 {settings.aboutIntro ||
-                  "Sawee Vintage & Classic Cars is a Tanzanian dealership specialising in vintage and classic automobiles. The collection you see on this website is presented the same way we present it in person: real photographs, real specifications, and availability that we keep up to date ourselves."}
+                  "SAWEE CARS is a Tanzanian dealership specialising in vintage and classic automobiles. The collection you see on this website is presented the same way we present it in person: real photographs, real specifications, and availability that we keep up to date ourselves."}
               </p>
             </div>
           </Reveal>
@@ -69,7 +69,7 @@ export default async function AboutPage() {
             <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
               <Image
                 src="/images/demo/about.png"
-                alt="Classic automobiles at Sawee Vintage & Classic Cars"
+                alt="Classic automobiles at SAWEE CARS"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"

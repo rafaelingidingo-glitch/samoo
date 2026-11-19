@@ -46,7 +46,8 @@ export default async function InventoryPage({
 
   const [result, brands, categories, years] = await Promise.all([
     getPublishedVehicles(query),
-    getBrandsWithCounts(),
+    // Public filter lists only brands that currently have published vehicles.
+    getBrandsWithCounts().then((all) => all.filter((b) => b.vehicleCount > 0)),
     getCategoriesWithCounts(),
     getActiveYears(),
   ]);

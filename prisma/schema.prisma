@@ -1,5 +1,5 @@
 // ============================================================
-// Sawee Vintage & Classic Cars — Database Schema
+// SAWEE CARS — Database Schema
 // ------------------------------------------------------------
 // DEVELOPMENT NOTE:
 //   This schema runs on SQLite for local development.
@@ -127,7 +127,7 @@ model VehicleImage {
 // ------------------------------------------------------------
 model SiteSetting {
   id              String   @id @default("singleton")
-  businessName    String   @default("Sawee Vintage & Classic Cars")
+  businessName    String   @default("SAWEE CARS")
   phone           String   @default("+255710853255")
   whatsappNumber  String   @default("255710853255")
   instagramUrl    String   @default("https://www.instagram.com/sawee_oldcarstz/")

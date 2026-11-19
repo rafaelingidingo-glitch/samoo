@@ -120,7 +120,7 @@ export function VehicleProductJsonLd({
           priceCurrency: currency,
           price,
           availability,
-          seller: { "@type": "AutoDealer", name: "Sawee Vintage & Classic Cars" },
+          seller: { "@type": "AutoDealer", name: "SAWEE CARS" },
         },
       }}
     />

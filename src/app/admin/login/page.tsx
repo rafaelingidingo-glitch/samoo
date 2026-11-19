@@ -25,7 +25,7 @@ export default async function AdminLoginPage() {
             Admin Sign In
           </h1>
           <p className="mt-2 text-sm text-neutral-400">
-            Sawee Vintage &amp; Classic Cars — management dashboard
+            SAWEE CARS — management dashboard
           </p>
         </div>
 

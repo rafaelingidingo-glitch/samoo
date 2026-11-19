@@ -4,7 +4,7 @@ import { requirePageUser } from "@/lib/auth/guards";
 import { getSiteSettings } from "@/lib/settings";
 
 export const metadata = {
-  title: { default: "Admin Dashboard", template: "%s | Sawee Admin" },
+  title: { default: "Admin Dashboard", template: "%s | SAWEE CARS Admin" },
   robots: { index: false, follow: false },
 };
 
