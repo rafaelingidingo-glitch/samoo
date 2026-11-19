@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, MessageCircle } from "lucide-react";
+import { Menu, LogIn } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,10 +25,9 @@ const NAV_LINKS = [
 type SiteHeaderProps = {
   businessName: string;
   logoUrl: string | null;
-  whatsappUrl: string;
 };
 
-export function SiteHeader({ businessName, logoUrl, whatsappUrl }: SiteHeaderProps) {
+export function SiteHeader({ businessName, logoUrl }: SiteHeaderProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -75,11 +74,15 @@ export function SiteHeader({ businessName, logoUrl, whatsappUrl }: SiteHeaderPro
         </nav>
 
         <div className="hidden md:block">
-          <Button asChild className="bg-gold text-gold-foreground hover:bg-gold-dark">
-            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-              <MessageCircle className="h-4 w-4" aria-hidden />
-              WhatsApp Us
-            </a>
+          <Button
+            asChild
+            variant="outline"
+            className="border-border bg-transparent text-foreground hover:border-gold hover:bg-transparent hover:text-gold-dark"
+          >
+            <Link href="/admin/login">
+              <LogIn className="h-4 w-4" aria-hidden />
+              Login
+            </Link>
           </Button>
         </div>
 
@@ -116,16 +119,15 @@ export function SiteHeader({ businessName, logoUrl, whatsappUrl }: SiteHeaderPro
                 ))}
               </ul>
               <Separator className="my-6" />
-              <Button asChild className="w-full bg-gold text-gold-foreground hover:bg-gold-dark">
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setOpen(false)}
-                >
-                  <MessageCircle className="h-4 w-4" aria-hidden />
-                  Chat on WhatsApp
-                </a>
+              <Button
+                asChild
+                variant="outline"
+                className="w-full border-border bg-transparent text-foreground hover:border-gold hover:bg-transparent hover:text-gold-dark"
+              >
+                <Link href="/admin/login" onClick={() => setOpen(false)}>
+                  <LogIn className="h-4 w-4" aria-hidden />
+                  Login
+                </Link>
               </Button>
             </nav>
           </SheetContent>
