@@ -59,21 +59,21 @@ export function SetupForm() {
       )}
 
       <div className="flex flex-col gap-2">
-        <Label htmlFor="name">Full name</Label>
-        <Input id="name" required value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Salum Said" autoComplete="name" />
+        <Label htmlFor="name" className="text-neutral-300">Full name</Label>
+        <Input id="name" required value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Salum Said" autoComplete="name" className="text-ink-foreground placeholder:text-neutral-400" />
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label htmlFor="email">Email address</Label>
-        <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="admin@example.com" autoComplete="email" />
+        <Label htmlFor="email" className="text-neutral-300">Email address</Label>
+        <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="admin@example.com" autoComplete="email" className="text-ink-foreground placeholder:text-neutral-400" />
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label htmlFor="password">Password</Label>
-        <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="new-password" />
+        <Label htmlFor="password" className="text-neutral-300">Password</Label>
+        <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="new-password" className="text-ink-foreground placeholder:text-neutral-400" />
         <ul className="mt-1 space-y-1" aria-label="Password requirements">
           {passwordChecks.map((c) => (
-            <li key={c.label} className={`flex items-center gap-2 text-xs ${c.ok ? "text-emerald-700" : "text-muted-foreground"}`}>
+            <li key={c.label} className={`flex items-center gap-2 text-xs ${c.ok ? "text-emerald-400" : "text-neutral-400"}`}>
               <span className={`inline-block h-1.5 w-1.5 rounded-full ${c.ok ? "bg-emerald-600" : "bg-neutral-400"}`} aria-hidden />
               {c.label}
             </li>
@@ -82,11 +82,11 @@ export function SetupForm() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label htmlFor="confirm">Confirm password</Label>
-        <Input id="confirm" type="password" required value={confirm} onChange={(e) => setConfirm(e.target.value)} autoComplete="new-password" />
+        <Label htmlFor="confirm" className="text-neutral-300">Confirm password</Label>
+        <Input id="confirm" type="password" required value={confirm} onChange={(e) => setConfirm(e.target.value)} autoComplete="new-password" className="text-ink-foreground placeholder:text-neutral-400" />
       </div>
 
-      <Button type="submit" disabled={loading} className="bg-gold text-gold-foreground hover:bg-gold-dark">
+      <Button type="submit" disabled={loading} className="bg-gold text-ink hover:bg-gold-dark">
         {loading ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden />

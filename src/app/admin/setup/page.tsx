@@ -39,7 +39,7 @@ export default async function AdminSetupPage() {
               permanently disabled. New staff accounts are created from{" "}
               <strong className="text-white">Dashboard → Users</strong> by a Super Admin.
             </p>
-            <Button asChild className="mt-6 w-full bg-gold text-gold-foreground hover:bg-gold-dark">
+            <Button asChild className="mt-6 w-full bg-gold text-ink hover:bg-gold-dark">
               <Link href="/admin/login">Go to Sign In</Link>
             </Button>
           </div>

@@ -54,7 +54,7 @@ export function LoginForm() {
       )}
 
       <div className="flex flex-col gap-2">
-        <Label htmlFor="email">Email address</Label>
+        <Label htmlFor="email" className="text-neutral-300">Email address</Label>
         <div className="relative">
           <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
           <Input
@@ -65,13 +65,13 @@ export function LoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="admin@example.com"
-            className="pl-10"
+            className="pl-10 text-ink-foreground placeholder:text-neutral-400"
           />
         </div>
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label htmlFor="password">Password</Label>
+        <Label htmlFor="password" className="text-neutral-300">Password</Label>
         <div className="relative">
           <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
           <Input
@@ -82,7 +82,7 @@ export function LoginForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Your password"
-            className="pl-10"
+            className="pl-10 text-ink-foreground placeholder:text-neutral-400"
           />
         </div>
       </div>
@@ -90,7 +90,7 @@ export function LoginForm() {
       <Button
         type="submit"
         disabled={loading}
-        className="bg-gold text-gold-foreground hover:bg-gold-dark"
+        className="bg-gold text-ink hover:bg-gold-dark"
       >
         {loading ? (
           <>
@@ -105,7 +105,7 @@ export function LoginForm() {
         )}
       </Button>
 
-      <p className="text-center text-sm text-muted-foreground">
+      <p className="text-center text-sm text-neutral-400">
         First time here?{" "}
         <Link href="/admin/setup" className="font-semibold text-gold-dark underline-offset-4 hover:underline">
           Create the first administrator

@@ -35,7 +35,7 @@ export default async function AdminLoginPage() {
           </Suspense>
         </div>
 
-        <p className="mt-6 text-center text-xs text-neutral-500">
+        <p className="mt-6 text-center text-xs text-neutral-400">
           Authorized personnel only. All sign-in attempts are rate-limited and audited.
         </p>
       </div>
