@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
     }
 
     resetRateLimit(`login:email:${ip}:${emailKey}`);
-    await setSessionCookie({
+    const cookie = await setSessionCookie({
       sub: user.id,
       role: user.role,
       name: user.name,
@@ -82,7 +82,10 @@ export async function POST(req: NextRequest) {
     });
     await logAudit({ userId: user.id, userName: user.name, action: "LOGIN", entityType: "AUTH" });
 
-    return NextResponse.json({ user: { name: user.name, email: user.email, role: user.role } });
+    return NextResponse.json(
+      { user: { name: user.name, email: user.email, role: user.role } },
+      { headers: { "Set-Cookie": cookie } }
+    );
   } catch (error) {
     return handleApiError(error);
   }

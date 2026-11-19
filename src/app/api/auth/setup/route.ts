@@ -63,14 +63,17 @@ export async function POST(req: NextRequest) {
       entityId: user.id,
     });
 
-    await setSessionCookie({
+    const cookie = await setSessionCookie({
       sub: user.id,
       role: user.role,
       name: user.name,
       email: user.email,
     });
 
-    return NextResponse.json({ ok: true, user: { name: user.name, email: user.email, role: user.role } });
+    return NextResponse.json(
+      { ok: true, user: { name: user.name, email: user.email, role: user.role } },
+      { headers: { "Set-Cookie": cookie } }
+    );
   } catch (error) {
     return handleApiError(error);
   }

@@ -63,16 +63,17 @@ export async function verifySessionToken(
   }
 }
 
-export async function setSessionCookie(payload: SessionPayload): Promise<void> {
+export async function setSessionCookie(payload: SessionPayload): Promise<string> {
   const token = await signSession(payload);
-  const cookieStore = await cookies();
-  cookieStore.set(SESSION_COOKIE_NAME, token, {
-    httpOnly: true,
-    secure: isProd,
-    sameSite: "lax",
-    maxAge: SESSION_MAX_AGE_SECONDS,
-    path: "/",
-  });
+  const parts = [
+    `${SESSION_COOKIE_NAME}=${token}`,
+    "HttpOnly",
+    "SameSite=Lax",
+    `Max-Age=${SESSION_MAX_AGE_SECONDS}`,
+    "Path=/",
+  ];
+  if (isProd) parts.push("Secure");
+  return parts.join("; ");
 }
 
 export async function readSession(): Promise<SessionPayload | null> {
