@@ -97,7 +97,7 @@ const vehicleBaseFields = {
 
 export const vehicleCreateSchema = z.object({
   ...vehicleBaseFields,
-  images: z.array(vehicleImageInput).max(20, "Maximum 20 images per vehicle.").default([]),
+  images: z.array(vehicleImageInput).max(10, "Maximum 10 images per vehicle.").default([]),
 });
 
 export const vehicleUpdateSchema = z.object({
@@ -111,7 +111,7 @@ export const vehicleStatusUpdateSchema = z.object({
 });
 
 export const vehicleImagesSyncSchema = z.object({
-  images: z.array(vehicleImageInput).max(20, "Maximum 20 images per vehicle."),
+  images: z.array(vehicleImageInput).max(10, "Maximum 10 images per vehicle."),
 });
 
 // ------------------------------------------------------------------

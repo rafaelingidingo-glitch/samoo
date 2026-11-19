@@ -72,7 +72,7 @@ Go to **Admin > Inventory → Add Vehicle** (or **Inventory → New**).
 
 - Formats accepted: **JPEG, PNG, WebP, AVIF**. Anything else is rejected.
 - Each file can be **up to 8 MB**.
-- Up to **20 photos per vehicle**.
+- Up to **10 photos per vehicle**.
 - **Drag and drop the thumbnails to reorder** them. The **first photo is the main image** — it appears on cards, in search results, and first in the gallery.
 - Add **alt text** for each photo (a short description of what the picture shows, e.g. “Rear three-quarter view with spare wheel”). Alt text helps visually impaired visitors and search engines.
 - If an upload fails, you'll see a toast explaining why — check the file type/size and retry.

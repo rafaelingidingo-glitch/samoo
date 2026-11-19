@@ -1,24 +1,16 @@
 // ============================================================
 // SAWEE CARS — Database Schema
 // ------------------------------------------------------------
-// DEVELOPMENT NOTE:
-//   This schema runs on SQLite for local development.
-//   It is designed to be 100% portable to MySQL for production.
+// This schema runs on PostgreSQL (Neon) for local development
+// and production (the same database is used in both).
 //
-//   To switch to MySQL in production:
-//     1. Change datasource provider to "mysql"
-//     2. Set DATABASE_URL to the MySQL connection string
-//     3. On Vehicle.price, restore the native type:
-//          price Decimal @db.Decimal(14, 2)
-//        (native type attributes are not supported on SQLite)
-//     4. Run: npx prisma migrate deploy
-//
-// Design rules used for portability:
+// Design notes:
 //   - Role / status / condition fields are String columns
-//     (SQLite does not support Prisma enums). Values are
-//     strictly validated server-side with Zod.
+//     (values are strictly validated server-side with Zod —
+//     the validation layer is the "enum" boundary).
 //   - All relations use explicit foreign keys with defined
 //     cascade behaviour.
+//   - Vehicle.price uses a native DECIMAL(14, 2) column.
 // ============================================================
 
 generator client {
@@ -26,7 +18,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -78,7 +70,7 @@ model Vehicle {
   model          String
   categoryId     String?
   year           Int
-  price          Decimal // MySQL: Decimal @db.Decimal(14, 2)
+  price          Decimal        @db.Decimal(14, 2)
   currency       String         @default("TZS")
   mileage        Int? // kilometers
   fuelType       String? // Petrol | Diesel | Hybrid | Electric

@@ -14,4 +14,4 @@ export const UPLOAD_DIR =
   process.env.UPLOAD_DIR || `${process.cwd()}/uploads`;
 
 export const UPLOAD_MAX_BYTES = 8 * 1024 * 1024; // 8 MB
-export const UPLOAD_MAX_IMAGES_PER_VEHICLE = 20;
+export const UPLOAD_MAX_IMAGES_PER_VEHICLE = 10;

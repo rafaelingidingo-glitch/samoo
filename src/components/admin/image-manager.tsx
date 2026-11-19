@@ -22,7 +22,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { Input } from "@/components/ui/input";
 import { optimizedImageUrl } from "@/lib/cloudinary/image-url";
 
-const MAX_IMAGES = 20;
+const MAX_IMAGES = 10;
 const MAX_FILE_MB = 8;
 
 export type FormImage = {

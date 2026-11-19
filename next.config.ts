@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
+  // "standalone" is only used by the sandbox packaging flow.
+  // On Vercel, the default output is used (Vercel sets VERCEL=1 during builds).
+  ...(process.env.VERCEL ? {} : { output: "standalone" as const }),
   typescript: {
     ignoreBuildErrors: true,
   },

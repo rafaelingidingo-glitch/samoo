@@ -25,20 +25,19 @@ Production-ready dealership website for **SAWEE CARS** (Tanzania), specialising 
 | UI runtime | React 19 |
 | Language | TypeScript 5 |
 | Styling | Tailwind CSS 4 + shadcn/ui (Radix primitives) |
-| ORM / database | Prisma 6 — **SQLite in development, MySQL for production** |
+| ORM / database | Prisma 6 — **PostgreSQL (Neon)** for development and production |
 | Auth | Custom JWT sessions — `bcryptjs` (password hashing) + `jose` (HS256 signing), HttpOnly cookie |
 | Image storage | Cloudinary signed uploads, with local-disk fallback (`/uploads` served via `/api/files`) |
 | Notifications UX | `sonner` toasts |
 | Drag & drop | `dnd-kit` (vehicle photo reordering) |
 | Animation | `framer-motion` (homepage reveal effects) |
-| Validation | Zod schemas as the single validation boundary (also substitutes enums for SQLite portability) |
+| Validation | Zod schemas as the single validation boundary (roles, statuses, limits) |
 
 ## Prerequisites
 
 - **Node.js 20+** or **Bun** (the scripts in this repo assume Bun)
-- A local SQLite database file (created automatically by `db:push`)
-- *(Optional)* a **Cloudinary** account — only needed for production image hosting; without it the app transparently uses local storage
-- *(Production only)* a **MySQL** server (managed MySQL is recommended — see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md))
+- A **Neon PostgreSQL** database (free tier is enough to start) — the same database is used for development and production
+- *(Optional)* a **Cloudinary** account — required on Vercel so uploads persist; without it the app transparently uses local storage
 
 ## Quick Start
 
@@ -71,7 +70,7 @@ Create a `.env` file in the project root. All variables (with comments) are list
 
 | Variable | Required | Description |
 | --- | --- | --- |
-| `DATABASE_URL` | ✅ | Prisma connection string. **SQLite (dev):** `file:/home/z/my-project/db/custom.db` — **MySQL (prod):** `mysql://user:password@host:3306/dbname` |
+| `DATABASE_URL` | ✅ | Prisma connection string — **Neon PostgreSQL pooled URL**, e.g. `postgresql://user:password@ep-xxxx-pooler.region.aws.neon.tech/neondb?sslmode=require&pgbouncer=true&connection_limit=10` |
 | `AUTH_SECRET` | ✅ in production | Secret used to sign session JWTs. Must be **32+ characters**. Generate with `openssl rand -hex 32`. In development a fallback dev-only secret is used so the sandbox boots without setup; in production a missing/weak secret **throws** at startup. |
 | `NEXT_PUBLIC_SITE_URL` | ✅ in production | Canonical site origin, e.g. `https://www.saweecars.co.tz`. Used for sitemap, robots, canonical URLs, Open Graph and WhatsApp message links. Defaults to `http://localhost:3000`. |
 | `CLOUDINARY_CLOUD_NAME` | ⬜ optional | Cloudinary account name. When **all three** `CLOUDINARY_*` credentials are absent, the local storage driver is used automatically. |
@@ -84,49 +83,25 @@ Create a `.env` file in the project root. All variables (with comments) are list
 
 ## Database
 
-### Development — SQLite
+### PostgreSQL (Neon) — development and production
 
-The schema ships with `provider = "sqlite"` and is fully portable. Enum-like values (roles, statuses, conditions) are stored as plain strings and validated strictly with Zod, because SQLite does not support Prisma enums.
+The Prisma schema targets **PostgreSQL** (`provider = "postgresql"`) and connects to a Neon database in both development and production. Roles, statuses and conditions are stored as plain strings and validated strictly with Zod. `Vehicle.price` uses a native `DECIMAL(14, 2)` column.
+
+Use the **pooled** connection string (host contains `-pooler.`) with `pgbouncer=true` — Neon's pooler runs PgBouncer in transaction mode, which Prisma requires this flag for.
 
 | Script | What it does |
 | --- | --- |
-| `bun run db:push` | Push the Prisma schema to the database (no migration history — ideal for dev iteration) |
+| `bun run db:push` | Push the Prisma schema to Neon (creates/updates all tables) |
 | `bun run db:generate` | (Re)generate the Prisma Client |
 | `bun run db:seed` | Seed categories, brands, default site settings and the marked demo vehicles |
-| `bun run db:migrate` | `prisma migrate dev` — create/apply a migration (used once on MySQL) |
+| `bun run db:migrate` | `prisma migrate dev` — create/apply versioned migrations (optional) |
 | `bun run db:reset` | `prisma migrate reset` — drop & recreate the database, re-apply migrations & seed |
 
-### Switching to MySQL for production
+### Production deployment
 
-1. In `prisma/schema.prisma`, change the datasource provider:
+Production runs on **Vercel** with the same Neon database. Set `DATABASE_URL`, `AUTH_SECRET`, `NEXT_PUBLIC_SITE_URL` and the `CLOUDINARY_*` variables as Vercel environment variables — the full walkthrough (including DNS, Search Console and backups) lives in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
-   ```prisma
-   datasource db {
-     provider = "mysql"
-     url      = env("DATABASE_URL")
-   }
-   ```
-
-2. Set `DATABASE_URL` to a MySQL connection string:
-
-   ```env
-   DATABASE_URL="mysql://user:password@host:3306/saweecars?connection_limit=10"
-   ```
-
-3. Restore the native column type on `Vehicle.price`. The schema file contains a comment marking the exact spot (`price Decimal // MySQL: Decimal @db.Decimal(14, 2)`); change it to:
-
-   ```prisma
-   price Decimal @db.Decimal(14, 2)
-   ```
-
-   *(Native type attributes are not supported on SQLite, which is why it is commented out for development.)*
-
-4. Create and apply migrations:
-
-   ```bash
-   bun run db:migrate          # locally: creates the migration files against MySQL
-   npx prisma migrate deploy   # on the production server: applies them
-   ```
+> Vercel generates the Prisma client automatically via the `postinstall` hook and builds with the `vercel-build` script — no manual build configuration is required.
 
 ## First-run Checklist
 
@@ -144,7 +119,7 @@ The schema ships with `provider = "sqlite"` and is fully portable. Enum-like val
 - **RBAC** — `SUPER_ADMIN` / `ADMIN` / `EDITOR`, enforced per route server-side (`requireUser([...])`, `canPublish`, `canFeature`, `canManageUsers`, `canManageSettings`).
 - **Audit log** — security-relevant events (logins, failed logins, setup, vehicle/media/user/settings changes) are recorded in the `AuditLog` table and viewable at **Admin > Audit**.
 - **CSRF protection** — all cookie-authenticated mutations verify the `Origin` header against the request host, combined with `SameSite=Lax` cookies.
-- **Upload validation** — MIME allow-list (JPEG, PNG, WebP, AVIF), **8 MB per file**, **20 images per vehicle**, empty-file rejection; local storage keys are sanitised against path traversal.
+- **Upload validation** — MIME allow-list (JPEG, PNG, WebP, AVIF), **8 MB per file**, **10 images per vehicle**, empty-file rejection; local storage keys are sanitised against path traversal.
 - **Security headers** — `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` (camera/microphone/geolocation disabled), and `X-Powered-By` removed.
 - **Error hygiene** — API errors never leak stack traces or database internals.
 
@@ -155,7 +130,6 @@ The schema ships with `provider = "sqlite"` and is fully portable. Enum-like val
 │   ├── schema.prisma          # Data model (User, Brand, Category, Vehicle,
 │   │                          #  VehicleImage, SiteSetting, AuditLog, PendingMediaDeletion)
 │   └── seed.ts                # Categories, brands, settings + marked demo vehicles
-├── db/custom.db               # SQLite database (dev)
 ├── public/                    # Static assets incl. /images/demo
 ├── docs/
 │   ├── DEPLOYMENT.md          # Production deployment guide
@@ -189,5 +163,5 @@ Seeded vehicle listings are **clearly marked placeholders**: every demo title co
 
 ## Further Documentation
 
-- [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) — production deployment (Vercel + MySQL + Cloudinary), backups, security checklist.
+- [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) — production deployment (Vercel + Neon PostgreSQL + Cloudinary), backups, security checklist.
 - [docs/ADMIN_GUIDE.md](docs/ADMIN_GUIDE.md) — day-to-day admin tasks for non-technical staff.
